@@ -1,0 +1,83 @@
+
+*/
+public class Team {
+    private String name;// название команды
+    private Participant participants[] ;    // участники
+
+    public Team(String name) {
+        this.name = name;
+    }
+
+    public Team(String name,Participant ... participantsGiven ) {
+        this.name = name;
+        this.participants = participantsGiven;
+    }
+
+    public void getTeamInfo() {
+        System.out.println("Команда: " + this.name );
+        for (Participant participant : participants) {
+            if (participant instanceof Dog) {
+                System.out.println("Собака " + participant.getName());
+            }
+            if (participant instanceof Cat) {
+                System.out.println("Кот " + participant.getName());
+            }
+            if (participant instanceof Robot) {
+                System.out.println("Робот " + participant.getName());
+            }
+        }
+    }
+
+    public void showResults(){
+        for (Participant participant : participants) {
+            //obstacle.doIt(participant);
+            if (!participant.isOnDistance()) {
+                break;
+            }
+        }
+    }
+    public void doIt(Obstacle obstacle){
+        for (Participant participant : participants) {
+            obstacle.doIt(participant);
+            /*if (!participant.isOnDistance()) {
+                break;
+            }*/
+        }
+    }
+
+
+
+}
+package lesson1;
+
+        import lesson1.Competitors.*;
+        import lesson1.obstacles.*;
+
+public class MainClass {
+    public static void main(String[] args) {
+
+        Competitor[] competitors = {new Human("Боб"), new Cat("Барсик"), new Dog("Бобик")};
+        Obstacle[] obstacles = {new Cross(400), new Wall(2), new Water(1)};
+
+        Team team = new Team("Winners", competitors);
+
+        System.out.println("============created new team============");
+        System.out.println(team.getTeamName());
+
+        System.out.println("============greeting team members============");
+        team.showResults();
+
+        // new Course
+        Course course = new Course(obstacles);
+
+        System.out.println("============team goes to course============");
+        course.doIt(team);
+
+        System.out.println("============show team Results============");
+        team.showResults();
+
+        System.out.println("============team members finished course============");
+        team.showMembersFinishedCourse();
+    }
+
+
